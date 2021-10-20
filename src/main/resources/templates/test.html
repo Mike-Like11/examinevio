@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+</head>
+<body>
+<header th:insert="general.html :: header"> </header>
+<div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="row justify-content-center features mb-2">
+        <div class="card p-2" style="width: 50%">
+            <div class="card-body">
+                <div class="text-center">
+                    <h4>Экзамен по дисциплине "Моделирование бизнес-процессов"</h4>
+                    <h4>До окончания теста осталось </h4><span id="minutes"></span>:<span id="seconds"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center features">
+        <div class="col-sm-8 col-md-5 col-lg-10 mb-2 item">
+            <div class="card p-2">
+                <div class="card-header">
+                    Вопрос 1
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Default checked radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Default checked radio
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-5 col-lg-2 mb-2 item">
+            <div class="card p-2">
+                <div class="card-header">
+                    Вопросы
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var sec = 90;
+    function pad ( val ) {
+        return val < 0 || val>10 ? val : "0" + val;
+    }
+    setInterval( function(){
+        $("#seconds").html(pad(--sec%60));
+        $("#minutes").html(pad(parseInt(sec/60,10)));
+    }, 1000);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</body>
+</html>

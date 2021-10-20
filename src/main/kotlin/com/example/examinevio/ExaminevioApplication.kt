@@ -1,11 +1,12 @@
-package com.example.studentio
+package com.example.examinevio
+
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class StudentioApplication
+class ExaminevioApplication
 
 fun main(args: Array<String>) {
-	runApplication<StudentioApplication>(*args)
+	runApplication<ExaminevioApplication>(*args)
 }

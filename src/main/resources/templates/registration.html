@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+</head>
+<body>
+<header th:insert="general.html :: header"> </header>
+<div class="container" style="margin-top: 10px; margin-bottom: 10px;">
+        <div class="registration-form">
+        <form>
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="name" placeholder="Имя">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="surname" placeholder="Фамилия">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="email" placeholder="Почта">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control item" id="password" placeholder="Пароль">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="phone-number" placeholder="Университет">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="birth-date" placeholder="Группа">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-block create-account">Создать аккаунт</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+</html>

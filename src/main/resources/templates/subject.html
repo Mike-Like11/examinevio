@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+</head>
+<body>
+<header th:insert="general.html :: header"> </header>
+<div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="row justify-content-center features">
+        <div class="col-sm-8 col-md-5 col-lg-8 mb-2 item">
+            <div class="card p-2">
+                <div class="card-header">
+                    Экзамен
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Пройти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-5 col-lg-4 mb-2 item">
+            <div class="card p-2">
+                <div class="card-header">
+                    Преподаватели
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
