@@ -18,7 +18,7 @@ class TestService (
             return testRepository.findById(id).get()
         }
         else{
-            return testRepository.findById(id).orElseThrow()
+            return testRepository.findById(id).get()
         }
     }
     fun addQuestion(id: ObjectId,question: Question){
