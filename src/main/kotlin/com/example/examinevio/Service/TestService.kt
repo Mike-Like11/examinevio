@@ -1,9 +1,11 @@
-package com.example.examinevio
+package com.example.examinevio.Service
 
+import com.example.examinevio.Models.Question
+import com.example.examinevio.Models.Test
+import com.example.examinevio.Repository.TestRepository
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class TestService (

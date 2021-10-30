@@ -1,4 +1,4 @@
-package com.example.examinevio
+package com.example.examinevio.Controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -36,5 +36,9 @@ class PresenterController {
     @GetMapping(value = arrayOf("/test_edit/{id}"))
     fun test_edit(): String {
         return "test_edit";
+    }
+    @GetMapping(value = arrayOf("/admin"))
+    fun admin(): String {
+        return "admin";
     }
 }

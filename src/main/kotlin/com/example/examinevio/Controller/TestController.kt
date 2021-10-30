@@ -1,5 +1,8 @@
-package com.example.examinevio
+package com.example.examinevio.Controller
 
+import com.example.examinevio.Models.Question
+import com.example.examinevio.Models.Test
+import com.example.examinevio.Service.TestService
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*

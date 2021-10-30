@@ -1,4 +1,4 @@
-package com.example.examinevio
+package com.example.examinevio.Models
 
 import nonapi.io.github.classgraph.json.Id
 import org.bson.types.ObjectId

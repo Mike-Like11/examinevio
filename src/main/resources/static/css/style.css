@@ -23,7 +23,7 @@ nav h4{
 }
 .list-group-item{
     background-color: #AF4425;
-    background-color: #662E1C;
+    background-color: #EBDCB2;
 }
 .registration-form form{
     background-color: #AF4425;
@@ -83,4 +83,7 @@ nav h4{
     border: none;
     color: white;
     margin-top: 20px;
+}
+table#table-transition-example .flip-list-move {
+    transition: transform 1s;
 }
