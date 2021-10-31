@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>My first BootstrapVue app</title>
+    <title>Страница администратора</title>
     <th:block th:include="general.html :: headerfiles"></th:block>
 </head>
 <body>
@@ -42,7 +38,6 @@
                                     </tr>
                                     </tbody>
                                 </table>
-<!--                                <b-table striped hover :items="this.students_check" ></b-table>-->
                             </div>
                         </div>
                         <div class="card mb-2">
@@ -87,16 +82,15 @@
                         <div class="card mb-2">
                             <div class="card-body">
                                 <h3>Добавление предметов</h3>
-                                <form class="new_answer m-2" style="border-color: white; border-radius: 20px; border-width: 10px" v-on:submit.prevent="postQuestion">
+                                <form class="new_answer m-2" style="border-color: white; border-radius: 20px; border-width: 10px" v-on:submit.prevent="addSubject">
                                     <h5>Новый предмет</h5>
                                     <div class="form-group">
                                         <label >Напишите название предмета</label>
-                                        <input type="text" class="form-control item" v-model="answer" id="chapter_test" placeholder="Название предмета">
-                                        <b-form-select v-model="selected" :options="options"></b-form-select>
+                                        <input type="text" class="form-control item" v-model="subject_name" id="chapter_test" placeholder="Название предмета">
                                     </div>
                                     <div class="form-group">
                                         <label>Выберите группы, у который будет этот предмет</label>
-                                        <b-form-select v-model="selected" :options="options"></b-form-select>
+                                        <b-form-select v-model="subject_groups" :options="group_names" multiple></b-form-select>
                                     </div>
                                     <div class="form-group">
                                         <label>Выберите преподавателей данного предмета</label>
@@ -119,96 +113,6 @@
             </div>
     </div>
 </div>
-<script>
-    window.app = new Vue({
-        el: '#app',
-        data: {
-        //     transProps: {
-        //         // Transition name
-        //         name: 'flip-list'
-        //     },
-        //     fields: [
-        //         {
-        //             key: 'desc',
-        //             sortable: true
-        //         },
-        //         {
-        //             key: 'type',
-        //             sortable: true
-        //         },
-        //         {
-        //             key: 'answer',
-        //             sortable: true,
-        //         }
-        //     ],
-            test:'',
-            selected:'',
-            new_group_name:'',
-            answer: '',
-            question_desc: ' ',
-            options:[],
-            groups:[],
-            number:'',
-            group_names:[],
-            students_check:[],
-            // id : window.location.href.split("/").slice(-1)[0]
-        },
-        mounted(){
-            this.getInfo();
-        },
-        methods: {
-            getInfo: function (event) {
-                axios
-                    .get("/admin/groups")
-                    .then(response => {
-                        this.groups = response.data;
-                        console.log(this.groups)
-                        for(let group in this.groups){
-                            this.group_names.push(this.groups[group].name);
-                        }
-                    });
-                axios
-                    .get("/admin/students")
-                    .then(response => {
-                        this.students_check = response.data;
-                        console.log(this.students_check)
-                        // for(let i = 0; i < this.test.question_number; i++){
-                        //     this.options.push(i+1);
-                        // }
-                    });
-            },
-            addGroup: function (event) {
-                console.log(this.new_group_name);
-                axios
-                    .post("/admin/group",{
-                        "name": this.new_group_name
-                    }).then(test=>{
-                        this.getInfo();
-                    }
-                );
-            },
-            enableAccount: function (student,selected,number) {
-                console.log("/admin/"+selected+"/student");
-                console.log("dasdasdasdasdasdasd");
-                // var thisgroup;
-                // for(let group in this.groups){
-                //     if(this.groups[group].name === selected){
-                //         thisgroup = this.groups[group].id
-                //         console.log(thisgroup)
-                //     }
-                // }
-                axios
-                    .post("/admin/"+selected+"/student",{
-                        "number": number,
-                        "fio":student.username,
-                        "email":student.email
-                    }).then(test=>{
-                        this.getInfo();
-                    }
-                );
-            }
-        }
-    })
-</script>
+<script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.examinevio.Models
 import com.example.examinevio.Models.User
 import nonapi.io.github.classgraph.json.Id
 import org.bson.types.ObjectId
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("groups")

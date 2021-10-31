@@ -2,28 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>My first BootstrapVue app</title>
-    <link
-            type="text/css"
-            rel="stylesheet"
-            href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
-    />
-    <link
-            type="text/css"
-            rel="stylesheet"
-            href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
-    />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
-
-    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
-    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <title>Создание теста</title>
     <th:block th:include="general.html :: headerfiles"></th:block>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header th:insert="general.html :: header"> </header>
@@ -62,34 +42,6 @@
                 </div>
     </div>
 </div>
-
-<!-- Start running your app -->
-<script>
-    window.app = new Vue({
-        el: '#app',
-        data: {
-            value: '',
-            date: '',
-            name_chapter: '',
-            name: '',
-            time:''
-        },
-        methods: {
-            postTest: function (event) {
-                axios
-                    .post("/add_test", {
-                        "name_test": this.name,
-                        "name_chapter":this.name_chapter,
-                        "date":this.date,
-                        "question_number":this.value,
-                        "time":this.time
-                    }).
-                    then(function (response){
-                    window.location.href = "/test_edit/"+response.data
-                })
-            }
-        }
-    })
-</script>
+<script th:src="@{/js/new_test.js}"></script>
 </body>
 </html>
