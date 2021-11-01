@@ -16,7 +16,7 @@ class PresenterController {
     fun login(): String {
         return "login";
     }
-    @GetMapping(value = arrayOf("/subject"))
+    @GetMapping(value = arrayOf("/subject/{id}"))
     fun subject(): String {
         return "subject";
     }
@@ -28,12 +28,12 @@ class PresenterController {
     fun my_profile(): String {
         return "my_profile";
     }
-    @GetMapping(value = arrayOf("/new_test"))
+    @GetMapping(value = arrayOf("/subject/{id}/new_test"))
     fun new_test(): String {
         return "new_test";
     }
 
-    @GetMapping(value = arrayOf("/test_edit/{id}"))
+    @GetMapping(value = arrayOf("/subject/{id}/test_edit/{id}"))
     fun test_edit(): String {
         return "test_edit";
     }
