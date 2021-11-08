@@ -84,6 +84,13 @@ nav h4{
     color: white;
     margin-top: 20px;
 }
+.add_question{
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #C9A66B;
+    border: none;
+    color: white;
+}
 table#table-transition-example .flip-list-move {
     transition: transform 1s;
 }

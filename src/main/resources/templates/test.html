@@ -6,13 +6,14 @@
 </head>
 <body>
 <header th:insert="general.html :: header"> </header>
-<div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;">
+<div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;" id="test">
     <div class="row justify-content-center features mb-2">
         <div class="col-sm-12 col-md-8 col-lg-6 mb-2 item">
             <div class="card p-2">
                 <div class="card-body">
                     <div class="text-center">
-                        <h4>Экзамен по дисциплине "Моделирование бизнес-процессов"</h4>
+                        <h4>{{test_info.test_name }}</h4>
+                        <h5>{{time_after}}</h5>
                         <h4>До окончания теста осталось </h4><span id="minutes"></span>:<span id="seconds"></span>
                     </div>
                 </div>
@@ -23,35 +24,40 @@
         <div class="col-sm-8 col-md-5 col-lg-10 mb-2 item">
             <div class="card p-2">
                 <div class="card-header">
-                    Вопрос 1
+                    {{current_index+1}} вопрос
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Default radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Default checked radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Default radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Default checked radio
-                        </label>
-                    </div>
+                    <h5 class="card-title">{{current_question.question.desc}}</h5>
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">-->
+<!--                        <label class="form-check-label" for="flexRadioDefault1">-->
+<!--                            Default radio-->
+<!--                        </label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>-->
+<!--                        <label class="form-check-label" for="flexRadioDefault2">-->
+<!--                            Default checked radio-->
+<!--                        </label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">-->
+<!--                        <label class="form-check-label" for="flexRadioDefault1">-->
+<!--                            Default radio-->
+<!--                        </label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>-->
+<!--                        <label class="form-check-label" for="flexRadioDefault2">-->
+<!--                            Default checked radio-->
+<!--                        </label>-->
+<!--                    </div>-->
+                    <form v-on:submit.prevent="answerQuestion">
+                        <div class="input-group">
+                            <input type="text" class="form-control item" v-model="current_question.your_answer" id="chapter_test" placeholder="Ответ">
+                            <input type="submit" class="add_question" value="Сохранить">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -61,10 +67,9 @@
                     Вопросы
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    <li class="list-group-item" v-for="(question_answer,index) in test_info.questions_answers" v-on:click="current_question = question_answer;current_index = index">{{index+1}} вопрос</li>
                 </ul>
+                <a v-bind:href="test_id+'/end_test'" class="btn btn-light">Завершить тест</a>
             </div>
         </div>
     </div>

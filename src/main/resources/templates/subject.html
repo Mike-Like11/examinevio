@@ -19,7 +19,7 @@
                     <h7>Количество вопросов : {{test.question_number}}</h7><br>
                     <h7>Продолжительность теста : {{test.time}} минут</h7><br>
                     <h7>Дата прохождения теста : {{test.date}}</h7><br>
-                    <button class="btn btn-light" :disabled="disabled[index]">Начать тестирование</button>
+                    <button class="btn btn-light" :disabled="disabled[index]" v-on:click="goToTest(test)">Начать тестирование</button>
                 </div>
             </div>
         </div>

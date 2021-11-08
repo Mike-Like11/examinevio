@@ -20,7 +20,7 @@ class PresenterController {
     fun subject(): String {
         return "subject";
     }
-    @GetMapping(value = arrayOf("/test"))
+    @GetMapping(value = arrayOf("/subject/{id}/test/{id}"))
     fun test(): String {
         return "test";
     }

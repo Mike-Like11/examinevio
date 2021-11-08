@@ -1,7 +1,11 @@
 package com.example.examinevio.Models
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import nonapi.io.github.classgraph.json.Id
+import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bson.types.ObjectId
+import org.springframework.data.annotation.Transient
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("tests")
@@ -15,4 +19,7 @@ data class Test(
     val time:Int,
     var questions:ArrayList<Question> = ArrayList<Question>()
 ) {
+    @Transient
+    @BsonIgnore
+    val indentity: String = id.toString()
 }

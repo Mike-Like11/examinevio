@@ -47,7 +47,7 @@ window.app = new Vue({
         },
         postQuestion: function (event) {
             axios
-                .post("/add_question/"+this.id, {
+                .post("/subject/"+window.location.href.split("/")[4]+"/add_question/"+this.id, {
                     "desc": this.question_desc,
                     "type":this.selected,
                     "answer":this.answer,

@@ -69,7 +69,7 @@ window.app = new Vue({
         },
         enableAccount: function (student,selected,number) {
             console.log("/admin/"+selected+"/student");
-            console.log("dasdasdasdasdasdasd");
+            console.log(student.email+selected+number+student.username);
             // var thisgroup;
             // for(let group in this.groups){
             //     if(this.groups[group].name === selected){

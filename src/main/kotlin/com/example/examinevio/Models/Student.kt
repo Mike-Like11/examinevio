@@ -9,6 +9,6 @@ data class Student (
     val id: ObjectId = ObjectId.get(),
     val number:String="",
     val fio:String ="",
-    @Field(name = "email")
-    val email:String = ""
-    )
+    val email:String = "",
+    val subjects_results:ArrayList<SubjectResult> = ArrayList()
+)

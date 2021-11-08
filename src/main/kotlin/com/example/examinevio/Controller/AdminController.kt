@@ -26,7 +26,6 @@ class AdminController(
     }
     @GetMapping(value = arrayOf("/admin/students"))
     fun get_students(): MutableList<User> {
-        println(userService.getUnEnabled())
         return userService.getUnEnabled();
     }
     @PostMapping(value = arrayOf("/admin/group"))
@@ -35,6 +34,7 @@ class AdminController(
     }
     @PostMapping(value = arrayOf("/admin/subject"))
     fun add_subject(@RequestBody subject: Subject): Subject {
+        println(subject)
         return subjectService.createSubject(subject)
     }
     @PostMapping(value = arrayOf("/admin/{name}/student"))
@@ -44,6 +44,6 @@ class AdminController(
     }
     @GetMapping(value = arrayOf("/admin/students/{email}"))
     fun get_student_info(@PathVariable email:String): Student {
-        return groupService.findUser(email = "sakak60542@dghetian.com")
+        return groupService.findUser(email)
     }
 }

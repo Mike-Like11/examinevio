@@ -19,7 +19,8 @@ window.app = new Vue({
                     "time":this.time
                 }).
             then(function (response){
-                window.location.href = "/subject/"+id+"/test_edit/"+response.data
+                console.log(response.data)
+                window.location.href = "/subject/"+this.id+"/test_edit/"+response.data
             })
         }
     }
