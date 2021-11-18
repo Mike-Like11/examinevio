@@ -6,10 +6,12 @@ import com.example.examinevio.Models.User
 import com.example.examinevio.Service.SubjectService
 import com.example.examinevio.Service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import springfox.documentation.spi.service.contexts.SecurityContextBuilder
 import java.security.Principal
 
 @RestController
@@ -25,7 +27,6 @@ class UserController(
     }
     @GetMapping(value = arrayOf("/subjects"))
     fun get_subjects(principal: Principal): MutableList<Subject> {
-        println(principal.name)
         return subjectService.getSubjects(principal.name)
     }
 }

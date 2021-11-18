@@ -30,10 +30,10 @@
                                                 <input type="text" class="form-control item" v-model="number" id="chapter_test" placeholder="номер студента">
                                             </td>
                                             <td class="form-group">
-                                                    <b-form-select id="select_group" v-model="selected" :options="group_names"></b-form-select>
+                                                    <b-form-select id="select_group" v-model="selected_student_group" :options="group_names"></b-form-select>
                                             </td>
                                             <td class="form-group">
-                                                <button class="btn btn-primary" v-on:click="enableAccount(student,selected,number)">Активировать студента</button>
+                                                <button class="btn btn-primary" v-on:click="enableStudentAccount(student,selected_student_group,number)">Активировать студента</button>
                                             </td>
                                     </tr>
                                     </tbody>
@@ -68,7 +68,23 @@
                         <div class="card mb-2">
                             <div class="card-body">
                                 <h3>Подтверждение учителей</h3>
-                                <b-table striped hover :items="this.test.questions" :fields="this.fields"></b-table>
+                                <table style="width: 100%">
+                                    <tbody>
+                                    <tr v-for="teacher in this.teachers_check">
+                                        <td class="form-group"> {{ teacher.email }}</td>
+                                        <td class="form-group"> {{ teacher.username }}</td>
+                                        <td>
+                                            <input type="text" class="form-control item" v-model="number" id="teacher_number" placeholder="номер учителя">
+                                        </td>
+                                        <td class="form-group">
+                                            <b-form-select id="select_subjects_teachers" v-model="selected_teachers_subjects" :options="subjects_names" multiple size="3"></b-form-select>
+                                        </td>
+                                        <td class="form-group">
+                                            <button class="btn btn-primary" v-on:click="enableTeacherAccount(teacher,selected_teachers_subjects,number)">Активировать учителя</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="card mb-2">
@@ -94,7 +110,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Выберите преподавателей данного предмета</label>
-                                        <b-form-select v-model="selected" :options="options"></b-form-select>
+                                        <b-form-select v-model="selected_teachers" :options="teachers_names" multiple></b-form-select>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-block create-account" value="Добавить">

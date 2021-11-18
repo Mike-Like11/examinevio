@@ -24,6 +24,10 @@ class PresenterController {
     fun test(): String {
         return "test";
     }
+    @GetMapping(value = arrayOf("/subject/{id}/test/{id}/test_result"))
+    fun test_result(): String {
+        return "test_result";
+    }
     @GetMapping(value = arrayOf("/my_profile"))
     fun my_profile(): String {
         return "my_profile";

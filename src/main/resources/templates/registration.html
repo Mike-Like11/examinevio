@@ -13,27 +13,33 @@
             <div class="form-icon">
                 <span><i class="icon icon-user"></i></span>
             </div>
+            <span v-if="empty_fields">{{empty_fields}}</span>
             <div class="form-group">
                 <input type="text" v-model="username" class="form-control item" id="name" placeholder="ФИО">
+                <span v-if="msg.username">{{msg.username}}</span>
             </div>
-<!--            <div class="form-group">-->
-<!--                <input type="text" class="form-control item" id="surname" placeholder="Фамилия">-->
-<!--            </div>-->
+            <div class="form-group">
+                <select class="form-control select_item" v-model="role" id="role" placeholder="Роль">
+                    <option value="STUDENT" selected>Студент</option>
+                    <option value="TEACHER">Учитель</option>
+                </select>
+            </div>
             <div class="form-group">
                 <input type="text" v-model="email" class="form-control item" id="email" placeholder="Почта">
+                <span v-if="msg.email">{{msg.email}}</span>
             </div>
             <div class="form-group">
                 <input type="password" v-model="password" class="form-control item" id="password" placeholder="Пароль">
+                <span v-if="msg.password">{{msg.password}}</span>
             </div>
-<!--            <div class="form-group">-->
-<!--                <input type="text" class="form-control item" id="phone-number" placeholder="Университет">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <input type="text" class="form-control item" id="birth-date" placeholder="Группа">-->
-<!--            </div>-->
+            <div class="form-group">
+                <input type="password" v-model="password_check" class="form-control item" id="password_check" placeholder="Пароль">
+                <span v-if="msg.password_check">{{msg.password_check}}</span>
+            </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-block create-account" value="Зарегистрироваться">
             </div>
+            <h6>Уже есть аккаунт?<a th:href="@{/registration}">Войдите</a></h6>
         </form>
         </div>
     </div>

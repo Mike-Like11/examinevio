@@ -38,7 +38,6 @@ class TestController(
     fun test_info(@PathVariable test_id: ObjectId, @PathVariable id: ObjectId,principal: Principal): TestResult {
         println("yesss")
         return subjectService.endUserTest(id,test_id,principal.name)
-
     }
     @PostMapping(value = arrayOf("/subjects/{id}/test/testik"))
     fun testikkk(@PathVariable id: ObjectId,@RequestParam value:String):String{
@@ -52,6 +51,18 @@ class TestController(
     @GetMapping(value = arrayOf("/subjects/{id}"))
     fun subject_info(@PathVariable id: ObjectId): Subject {
         return subjectService.getSubject(id)
+    }
+    @GetMapping(value = arrayOf("/subjects/{id}/groups"))
+    fun subject_info_groups(@PathVariable id: ObjectId): ArrayList<Group> {
+        return subjectService.getSubjectGroups(id)
+    }
+    @GetMapping(value = arrayOf("/subjects/{id}/teachers"))
+    fun subject_info_teachers(@PathVariable id: ObjectId): ArrayList<Teacher> {
+        return subjectService.getSubjectTeachers(id)
+    }
+    @GetMapping(value = arrayOf("/subjects/{id}/my_results"))
+    fun subject_result_info(@PathVariable id: ObjectId,principal: Principal): SubjectResult {
+        return subjectService.getSubjectResult(id,principal.name)
     }
     @GetMapping(value = arrayOf("/subjects/{id}/test/{test_id}/getview"))
     fun testview_user(@PathVariable id: ObjectId,@PathVariable test_id: ObjectId,principal: Principal): TestResult {

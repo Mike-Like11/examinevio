@@ -14,7 +14,7 @@
                     <div class="text-center">
                         <h4>{{test_info.test_name }}</h4>
                         <h5>{{time_after}}</h5>
-                        <h4>До окончания теста осталось </h4><span id="minutes"></span>:<span id="seconds"></span>
+                        <h6>До окончания теста осталось <span id="minutes"></span>:<span id="seconds"></span></h6>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         <div class="col-sm-8 col-md-5 col-lg-10 mb-2 item">
             <div class="card p-2">
                 <div class="card-header">
-                    {{current_index+1}} вопрос
+                    {{current_index}} вопрос
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{current_question.question.desc}}</h5>
@@ -67,9 +67,9 @@
                     Вопросы
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="(question_answer,index) in test_info.questions_answers" v-on:click="current_question = question_answer;current_index = index">{{index+1}} вопрос</li>
+                    <li class="list-group-item" v-for="(question_answer,index) in test_info.questions_answers" v-on:click="current_question = question_answer;current_index = index+1">{{index+1}} вопрос</li>
                 </ul>
-                <a v-bind:href="test_id+'/end_test'" class="btn btn-light">Завершить тест</a>
+                <a v-bind:href="test_id+'/test_result'" class="btn btn-light">Завершить тест</a>
             </div>
         </div>
     </div>

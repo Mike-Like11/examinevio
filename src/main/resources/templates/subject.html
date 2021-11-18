@@ -14,12 +14,13 @@
                     {{test.name_chapter}}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{test.name_test}}</h5>
-                    <h6>Информация о тесте}</h6>
-                    <h7>Количество вопросов : {{test.question_number}}</h7><br>
-                    <h7>Продолжительность теста : {{test.time}} минут</h7><br>
-                    <h7>Дата прохождения теста : {{test.date}}</h7><br>
-                    <button class="btn btn-light" :disabled="disabled[index]" v-on:click="goToTest(test)">Начать тестирование</button>
+                    <h4 class="card-title">{{test.name_test}}</h4><br>
+                    <h5>Информация о тесте</h5>
+                    <h6>Количество вопросов : {{test.question_number}}</h6>
+                    <h6>Продолжительность теста : {{test.time}} минут</h6>
+                    <h6>Дата прохождения теста : {{test.date}}</h6>
+                    <h6>Общее количество попыток : 1</h6><br>
+                    <button class="btn btn-light" :disabled="disabled[index]" v-on:click="goToTest(test)">{{test_status}}</button>
                 </div>
             </div>
         </div>
@@ -28,10 +29,8 @@
                 <div class="card-header">
                     Преподаватели
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                <ul class="list-group list-group-flush" >
+                    <li class="list-group-item" v-for="teacher in teachers">{{teacher.fio}}</li>
                 </ul>
             </div>
             <div class="card p-2">
@@ -39,15 +38,17 @@
                     Группы
                 </div>
                 <ul class="list-group list-group-flush" >
-                    <li class="list-group-item" v-for="group in subject.groups">{{group}}</li>
+                    <li class="list-group-item" v-for="group in groups">{{group.name}}</li>
                 </ul>
             </div>
             <div class="card p-2">
                 <div class="card-header">
-                    Разделы
+                    Редактирование тестов
                 </div>
                 <ul class="list-group list-group-flush" >
-                    <li class="list-group-item" v-for="test in subject.tests">{{test.name_chapter}}</li>
+                    <li class="list-group-item" v-for="test in subject.tests">
+                        <a v-bind:href="'/subject/'+subject.indentity+'/test_edit/'+test.indentity">{{test.name_chapter}}</a>
+                    </li>
                 </ul>
                 <a v-bind:href="'/subject/'+subject.indentity+'/new_test'" class="btn btn-light">Добавить тест</a>
             </div>

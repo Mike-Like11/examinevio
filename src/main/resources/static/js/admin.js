@@ -20,17 +20,25 @@ window.app = new Vue({
         //         }
         //     ],
         test:'',
-        selected:'',
+        selected_student_group:'',
+        selected_teachers_subjects:[],
         new_group_name:'',
         answer: '',
         question_desc: ' ',
         options:[],
         groups:[],
+        subjects:[],
+        selected_groups:[],
+        subjects_names:[],
         number:'',
+        teachers: '',
+        teachers_names:[],
         subject_groups:[],
+        selected_teachers:[],
         subject_name:'',
         group_names:[],
         students_check:[],
+        teachers_check:[]
         // id : window.location.href.split("/").slice(-1)[0]
     },
     mounted(){
@@ -48,9 +56,36 @@ window.app = new Vue({
                     }
                 });
             axios
-                .get("/admin/students")
+                .get("/admin/subjects")
+                .then(response => {
+                    this.subjects = response.data;
+                    console.log(this.subjects)
+                    for(let subject in this.subjects){
+                        this.subjects_names.push(this.subjects[subject].name);
+                    }
+                });
+            axios
+                .get("/admin/teachers")
+                .then(response => {
+                    this.teachers = response.data;
+                    console.log(this.subjects)
+                    for(let teacher in this.teachers){
+                        this.teachers_names.push(this.teachers[teacher].fio);
+                    }
+                });
+            axios
+                .get("/admin/students/on_check")
                 .then(response => {
                     this.students_check = response.data;
+                    console.log(this.students_check)
+                    // for(let i = 0; i < this.test.question_number; i++){
+                    //     this.options.push(i+1);
+                    // }
+                });
+            axios
+                .get("/admin/teachers/on_check")
+                .then(response => {
+                    this.teachers_check = response.data;
                     console.log(this.students_check)
                     // for(let i = 0; i < this.test.question_number; i++){
                     //     this.options.push(i+1);
@@ -67,16 +102,9 @@ window.app = new Vue({
                 }
             );
         },
-        enableAccount: function (student,selected,number) {
+        enableStudentAccount: function (student,selected,number) {
             console.log("/admin/"+selected+"/student");
             console.log(student.email+selected+number+student.username);
-            // var thisgroup;
-            // for(let group in this.groups){
-            //     if(this.groups[group].name === selected){
-            //         thisgroup = this.groups[group].id
-            //         console.log(thisgroup)
-            //     }
-            // }
             axios
                 .post("/admin/"+selected+"/student",{
                     "number": number,
@@ -87,10 +115,25 @@ window.app = new Vue({
                 }
             );
         },
+        enableTeacherAccount: function (teacher,selected_teachers_subjects,number) {
+            console.log("/admin/activate/teacher");
+            axios
+                .post("/admin/activate/teacher",{
+                    "number": number,
+                    "fio":teacher.username,
+                    "subjects":selected_teachers_subjects,
+                    "email":teacher.email
+                }).then(test=>{
+                    this.getInfo();
+                }
+            );
+        },
         addSubject: function (event) {
+            console.log(this.selected_teachers)
             axios
                 .post("/admin/subject",{
                     "name": this.subject_name,
+                    "teachers": this.selected_teachers,
                     "groups":this.subject_groups
                 }).then(test=>{
                     this.getInfo();

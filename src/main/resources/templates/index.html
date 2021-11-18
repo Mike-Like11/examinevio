@@ -9,7 +9,7 @@
 <div class="container" style="margin-top: 10px; margin-bottom: 10px;" id="app">
     <div class="row justify-content-center features">
         <div class="col-sm-6 col-md-5 col-lg-4 mb-2 item" v-for="subject in subjects">
-            <div class="card p-4">
+            <div class="card p-4 h-100">
                 <img th:src="@{/img/subject.png}" class="card-img-top" alt="...">
                 <a v-bind:href="'/subject/'+subject.indentity" class="learn-more"><h3 class="name">{{subject.name}}</h3></a>
             </div>

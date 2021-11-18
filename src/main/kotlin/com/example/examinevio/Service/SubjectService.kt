@@ -3,8 +3,10 @@ package com.example.examinevio.Service
 import com.example.examinevio.Models.*
 import com.example.examinevio.Repository.GroupRepository
 import com.example.examinevio.Repository.SubjectRepository
+import com.example.examinevio.Repository.TeacherRepository
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.mongodb.core.aggregation.DateOperators
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -16,24 +18,46 @@ class SubjectService(
     @Autowired
     val subjectRepository: SubjectRepository,
     @Autowired
-    val groupRepository:GroupRepository
+    val groupRepository:GroupRepository,
+    @Autowired
+    val teacherRepository: TeacherRepository
 ) {
-    fun createSubject(subject: Subject): Subject {
-        subject.groups.forEach {
+    fun createSubject(subjectInput:SubjectInput): Subject {
+        val  subject = Subject(name = subjectInput.name)
+        subjectInput.teachers.forEach{
+           val teacher:Teacher = teacherRepository.findByFio(it)!!
+            teacher.subjects.add(subject)
+            teacherRepository.save(teacher)
+        }
+        subjectInput.groups.forEach {
             val group = groupRepository.findByName(it)
+            group.subjects.add(subject)
             group.users.forEach {student->
-               student.subjects_results.add(SubjectResult(name = subject.name))
+                student.subjects_results.add(SubjectResult(name = subjectInput.name))
             }
-            println(groupRepository.findByName(it))
             groupRepository.save(group)
         }
         return subjectRepository.save(subject)
     }
-    fun getSubjects(email:String): MutableList<Subject> {
-        return subjectRepository.findSubjects(groupRepository.findGroupByUserName(email).name)
+    fun getSubjects(fio:String): MutableList<Subject> {
+        if(teacherRepository.findByFio(fio)!=null){
+            return teacherRepository.findByFio(fio)!!.subjects
+      }
+      else{
+            return groupRepository.findGroupByUserName(fio).subjects
+      }
     }
     fun getSubject(id:ObjectId): Subject {
         return subjectRepository.findById(id).get()
+    }
+    fun getSubjectGroups(id:ObjectId): ArrayList<Group> {
+        return groupRepository.findGroupsBySubjects(id)
+    }
+    fun getSubjectTeachers(id:ObjectId): ArrayList<Teacher> {
+        return teacherRepository.findTeacherBySubjects(id)
+    }
+    fun getAllSubjects(): MutableList<Subject> {
+        return subjectRepository.findAll()
     }
     fun addTest(id:ObjectId, test: Test){
         val subject = subjectRepository.findById(id)
@@ -108,19 +132,38 @@ class SubjectService(
             it.test_name.equals(test.name_test)
         }
         if (testResult!=null){
-            println(questionResult)
-            val questionResult2 = testResult.questions_answers.find {
-                it.id.equals(questionResult.id)
+            if(LocalDateTime.now()<LocalDateTime.parse(testResult.time_start,DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")).plusMinutes(
+                    test.time.toLong()
+                )) {
+                val questionResult2 = testResult.questions_answers.find {
+                    it.id.equals(questionResult.id)
+                }
+                if (questionResult2 != null) {
+                    questionResult2.your_answer = questionResult.your_answer
+                }
+                println(questionResult2)
+                println(testResult)
+                groupRepository.save(group)
             }
-            if (questionResult2 != null) {
-                questionResult2.your_answer = questionResult.your_answer
-            }
-            println(questionResult2)
-            println(testResult)
-            groupRepository.save(group)
             return testResult
         }
        throw NullPointerException()
+    }
+    fun getSubjectResult(id: ObjectId,name:String): SubjectResult {
+        val subject = subjectRepository.findById(id).get()
+        val group = groupRepository.findGroupByUserName(name)
+        val student: Student? = group.users.find { student: Student ->
+            student.fio.equals(name)
+        }
+        val subjectResult: SubjectResult? = student?.subjects_results?.find { subjectResult: SubjectResult ->
+            subjectResult.name.equals(subject.name)
+        }
+        if (subjectResult!=null) {
+            return subjectResult
+        }
+        else{
+            throw NullPointerException()
+        }
     }
     fun endUserTest(id: ObjectId, test_id: ObjectId, name:String): TestResult {
         val subject = subjectRepository.findById(id).get()

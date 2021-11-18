@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SubjectRepository: MongoRepository<Subject,ObjectId>{
     @Query(value = "{'groups':?0}")
-    fun findSubjects(group_name:String): ArrayList<Subject>
+    fun findSubjects(group_name:String): ArrayList<Subject>?
+    @Query(value = "{'teachers':?0}")
+    fun findSubjectsByTeacher(teacher_id:ObjectId): ArrayList<Subject>?
 }

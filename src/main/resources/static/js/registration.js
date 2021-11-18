@@ -3,31 +3,90 @@ window.app = new Vue({
     data: {
         username:'',
         password:'',
-        email:''
+        role:'STUDENT',
+        msg: [],
+        password_check:'',
+        email:'',
+        empty_fields:''
     },
-    mounted(){
-        this.getInfo();
+    watch: {
+        email(value){
+            this.email = value;
+            this.validateEmail(value);
+        },
+        password(value){
+            this.password = value;
+            this.validatePassword(value);
+        },
+        password_check(value){
+            this.password_check = value;
+            this.validatePasswordCheck(value);
+        },
+        username(value){
+            this.username = value;
+            this.validateUsername(value);
+        }
     },
     methods: {
-        getInfo: function (event) {
-            // axios
-            //     .get("/tests/"+this.id)
-            //     .then(response => {
-            //         console.log(response.data.id.str)
-            //         this.test = response.data;
-            //         for(let i = 0; i < this.test.question_number; i++){
-            //             this.options.push(i+1);
-            //         }
-            //     })
+        validateEmail(value){
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))
+            {
+                this.msg['email'] = '';
+            } else{
+                this.msg['email'] = 'Неправильный формат почты';
+            }
+        },
+        validatePassword(value){
+            let difference = 6 - value.length;
+            if (value.length<6) {
+                this.msg['password'] = 'Должно быть как минимум 6 символов '+ difference + ' осталось' ;
+            } else {
+                this.msg['password'] = '';
+            }
+            if (value===this.password_check) {
+                this.msg['password_check'] = '' ;
+            } else {
+                if(this.password_check==='') {
+                    this.msg['password_check'] = '';
+                }
+                else{
+                    this.msg['password_check'] = 'Неправильный пароль подтверждения';
+                }
+            }
+        },
+        validateUsername(value){
+            if (value==='') {
+                this.msg['username'] = 'Не забудьте указать ваше ФИО' ;
+            } else {
+                this.msg['username'] = '';
+            }
+        },
+        validatePasswordCheck(value){
+            if (value===this.password) {
+                this.msg['password_check'] = '' ;
+            } else {
+                this.msg['password_check'] = 'Неправильный пароль подтверждения';
+            }
         },
         addUser: function (event) {
-            axios
-                .post("/add_user", {
-                    "email": this.email,
-                    "username":this.username,
-                    "password":this.password,
-                    "UserRole":'STUDENT'
-                });
+            if(this.email!=='' && this.username!=='' && this.password!=='' && this.password_check!=='') {
+                axios
+                    .post("/add_user", {
+                        "email": this.email,
+                        "username": this.username,
+                        "password": this.password,
+                        "UserRole": this.role
+                    })
+                    .then((response) => {
+                        window.location.href='login'
+                    })
+                    .catch((error) => {
+                    this.empty_fields = error
+                    });
+            }
+            else{
+                this.empty_fields = 'Пожалуйста, заполните все поля'
+            }
         }
     }
 })

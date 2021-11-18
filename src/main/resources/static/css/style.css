@@ -64,6 +64,10 @@ nav h4{
     margin-bottom: 25px;
     padding: 10px 20px;
 }
+.registration-form .select_item{
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
 .create-account{
     border-radius: 30px;
     padding: 10px 20px;

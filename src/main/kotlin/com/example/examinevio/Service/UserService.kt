@@ -47,8 +47,15 @@ class UserService  constructor(
     fun getAllStudents(): MutableList<User> {
         return userRepository.findAll();
     }
-    fun getUnEnabled(): MutableList<User> {
-        return userRepository.findAllByEnabledFalse().get()
+    fun getUnEnabledStudents(): List<User> {
+        return userRepository.findAllByEnabledFalse().get().filter {
+            it.UserRole.equals(Role.STUDENT)
+        }
+    }
+    fun getUnEnabledTeachers(): List<User> {
+        return userRepository.findAllByEnabledFalse().get().filter {
+            it.UserRole.equals(Role.TEACHER)
+        }
     }
     fun enableUser(email: String?){
         val user= userRepository.findByEmail(email!!).get()
@@ -58,7 +65,6 @@ class UserService  constructor(
     fun signUpUser(user: User): User {
         val encryptedPassword = bCryptPasswordEncoder.encode(user.password)
         user.setPassword(encryptedPassword)
-        user.UserRole = Role.STUDENT
         return userRepository.save(user)
     }
 
