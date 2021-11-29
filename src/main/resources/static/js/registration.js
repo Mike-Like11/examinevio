@@ -1,13 +1,16 @@
 window.app = new Vue({
-    el: '#app',
+    el: '#registration',
     data: {
         username:'',
         password:'',
-        role:'STUDENT',
+        role:'ROLE_STUDENT',
         msg: [],
         password_check:'',
         email:'',
-        empty_fields:''
+        empty_fields:'',
+        config : {
+            withCredentials: true
+        }
     },
     watch: {
         email(value){
@@ -76,7 +79,7 @@ window.app = new Vue({
                         "username": this.username,
                         "password": this.password,
                         "UserRole": this.role
-                    })
+                    },this.config)
                     .then((response) => {
                         window.location.href='login'
                     })

@@ -1,9 +1,9 @@
-$('.new_answer').hide();
+// $('.new_answer').hide();
 function createAnswer() {
-    $('.new_answer').toggle();
+    // $('.new_answer').toggle();
 }
 window.app = new Vue({
-    el: '#app',
+    el: '#test_edit',
     data: {
         transProps: {
             // Transition name
@@ -28,7 +28,7 @@ window.app = new Vue({
         answer: '',
         question_desc: ' ',
         options:[],
-        id : window.location.href.split("/").slice(-1)[0]
+        id : window.location.href.split("/").slice(-2)[0]
     },
     mounted(){
         this.getInfo();

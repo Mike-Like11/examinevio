@@ -10,8 +10,9 @@ window.app = new Vue({
         test_status:'',
         id : window.location.href.split("/").slice(-1)[0]
     },
-      mounted() {
+      async mounted() {
           this.getInfo();
+          window.document.getElementById("subject").style.visibility = "visible"
      },
     methods: {
         getInfo:   async function (event) {

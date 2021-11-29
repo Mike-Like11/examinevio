@@ -7,7 +7,10 @@ import com.example.examinevio.Service.TeacherService
 import com.example.examinevio.Service.UserService
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.http.HttpResponse
 
 @RestController
 class AdminController(
@@ -20,6 +23,10 @@ class AdminController(
     @Autowired
     val teacherService: TeacherService
 ) {
+    @DeleteMapping(value = arrayOf("/admin/subject/{id}"))
+    fun delete_subject(@PathVariable id: ObjectId): ResponseEntity<Nothing> {
+        return ResponseEntity(null,HttpStatus.OK)
+    }
     @GetMapping(value = arrayOf("/admin/groups"))
     fun get_groups(): MutableList<Group> {
         return groupService.getAllGroups()

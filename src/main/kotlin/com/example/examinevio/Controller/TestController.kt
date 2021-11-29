@@ -56,12 +56,18 @@ class TestController(
     fun subject_info_groups(@PathVariable id: ObjectId): ArrayList<Group> {
         return subjectService.getSubjectGroups(id)
     }
+    @PostMapping(value = arrayOf("/subjects/{id}/add_mark"))
+    fun subject_student_add_mark(@PathVariable id: ObjectId,@RequestBody studentInput: StudentInput): Group? {
+        println("qwe")
+        print(studentInput)
+        return groupService.updateMark(id,studentInput)
+    }
     @GetMapping(value = arrayOf("/subjects/{id}/teachers"))
     fun subject_info_teachers(@PathVariable id: ObjectId): ArrayList<Teacher> {
         return subjectService.getSubjectTeachers(id)
     }
     @GetMapping(value = arrayOf("/subjects/{id}/my_results"))
-    fun subject_result_info(@PathVariable id: ObjectId,principal: Principal): SubjectResult {
+    fun subject_result_info(@PathVariable id: ObjectId,principal: Principal): SubjectResult? {
         return subjectService.getSubjectResult(id,principal.name)
     }
     @GetMapping(value = arrayOf("/subjects/{id}/test/{test_id}/getview"))

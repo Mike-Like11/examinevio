@@ -1,5 +1,5 @@
 window.app = new Vue({
-    el: '#app',
+    el: '#admin',
     data: {
         //     transProps: {
         //         // Transition name

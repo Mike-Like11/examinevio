@@ -17,7 +17,7 @@ window.app = new Vue({
     computed:{
        time_after : function() {
            setInterval(() => {
-               if((pad(parseInt(this.time/60,10))==="00")){
+               if((pad(parseInt(--this.time%60))==="-1")){
                    window.location.href = this.test_id+'/test_result'
                }
                $("#seconds").html(pad(--this.time%60));

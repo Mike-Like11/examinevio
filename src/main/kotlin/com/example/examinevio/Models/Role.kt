@@ -1,7 +1,7 @@
 package com.example.examinevio.Models
 
 enum class Role {
-    STUDENT,
-    TEACHER,
-    ADMIN
+    ROLE_STUDENT,
+    ROLE_TEACHER,
+    ROLE_ADMIN
 }

@@ -13,6 +13,9 @@ class TeacherService(
     fun addTeacher(teacher: Teacher): Teacher {
         return teacherRepository.save(teacher)
     }
+    fun findTeacher(name:String): Teacher? {
+        return teacherRepository.findByFio(name)
+    }
     fun getAllTeachers(): MutableList<Teacher> {
         return teacherRepository.findAll()
     }

@@ -1,5 +1,5 @@
 window.app = new Vue({
-    el: '#app',
+    el: '#new_test',
     data: {
         value: '',
         date: '',
@@ -21,7 +21,7 @@ window.app = new Vue({
                 }).then(function (response) {
                     new_test_id = response.data
                 })
-            window.location.href = "/subject/" + this.id + "/test_edit/" + new_test_id
+            window.location.href = "/subject/" + this.id +"/test/" + new_test_id + "/edit"
         }
     }
 })

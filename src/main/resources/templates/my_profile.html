@@ -9,6 +9,16 @@
 <div class="container" style="margin-top: 10px; margin-bottom: 10px;" id="my_profile">
     <div class="card">
         <div class="card-body">
+            <h3>{{info.fio}}</h3>
+            <h5>Ваш номер: {{info.number}}</h5>
+            <h5>Ваша почта: {{info.email}}</h5>
+            <h5>Страна: Россия</h5>
+            <h5>Город: Москва</h5>
+            <button class="btn btn-danger" v-on:click="logout">Выйти</button>
+        </div>
+    </div>
+    <div class="card" style="margin-bottom: 20px">
+        <div class="card-body">
             <h3>Курсы на который я учусь</h3>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -19,23 +29,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                            <tr v-for="subject_result in subjects_results">
+                                <th scope="row">{{subject_result.name}}</th>
+                                <td>{{subject_result.mark}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+<script th:src="@{/js/my_profile.js}"></script>
 </body>
 </html>

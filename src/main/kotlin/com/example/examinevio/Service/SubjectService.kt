@@ -3,6 +3,7 @@ package com.example.examinevio.Service
 import com.example.examinevio.Models.*
 import com.example.examinevio.Repository.GroupRepository
 import com.example.examinevio.Repository.SubjectRepository
+import com.example.examinevio.Repository.SubjectResultRepository
 import com.example.examinevio.Repository.TeacherRepository
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +21,9 @@ class SubjectService(
     @Autowired
     val groupRepository:GroupRepository,
     @Autowired
-    val teacherRepository: TeacherRepository
+    val teacherRepository: TeacherRepository,
+    @Autowired
+    val subjectResultRepository: SubjectResultRepository
 ) {
     fun createSubject(subjectInput:SubjectInput): Subject {
         val  subject = Subject(name = subjectInput.name)
@@ -33,7 +36,9 @@ class SubjectService(
             val group = groupRepository.findByName(it)
             group.subjects.add(subject)
             group.users.forEach {student->
-                student.subjects_results.add(SubjectResult(name = subjectInput.name))
+               val subjectResult =  SubjectResult(name = subjectInput.name)
+                subjectResultRepository.save(subjectResult)
+                student.subjects_results.add(subjectResult)
             }
             groupRepository.save(group)
         }
@@ -44,7 +49,7 @@ class SubjectService(
             return teacherRepository.findByFio(fio)!!.subjects
       }
       else{
-            return groupRepository.findGroupByUserName(fio).subjects
+            return groupRepository.findGroupByUserName(fio)?.subjects!!
       }
     }
     fun getSubject(id:ObjectId): Subject {
@@ -78,7 +83,7 @@ class SubjectService(
             it.id.equals(test_id)
         }.get(0)
         val group = groupRepository.findGroupByUserName(name)
-        val student: Student? = group.users.find {
+        val student: Student? = group?.users?.find {
             student: Student -> student.fio.equals(name)
         }
         val subjectResult: SubjectResult? = student?.subjects_results?.find {
@@ -111,7 +116,7 @@ class SubjectService(
                     test_time=test.time,
                     status = "created",
                     questions_answers =questions))
-                groupRepository.save(group)
+                subjectResultRepository.save(subjectResult)
             }
             return TestResult(test_name = test.name_test, result = 0, test_time=test.time, status = "created", questions_answers =questions)
         }
@@ -122,7 +127,7 @@ class SubjectService(
             it.id.equals(test_id)
         }.get(0)
         val group = groupRepository.findGroupByUserName(name)
-        val student: Student? = group.users.find {
+        val student: Student? = group?.users?.find {
                 student: Student -> student.fio.equals(name)
         }
         val subjectResult: SubjectResult? = student?.subjects_results?.find {
@@ -143,16 +148,16 @@ class SubjectService(
                 }
                 println(questionResult2)
                 println(testResult)
-                groupRepository.save(group)
+                subjectResultRepository.save(subjectResult)
             }
             return testResult
         }
        throw NullPointerException()
     }
-    fun getSubjectResult(id: ObjectId,name:String): SubjectResult {
+    fun getSubjectResult(id: ObjectId,name:String): SubjectResult? {
         val subject = subjectRepository.findById(id).get()
         val group = groupRepository.findGroupByUserName(name)
-        val student: Student? = group.users.find { student: Student ->
+        val student: Student? = group?.users?.find { student: Student ->
             student.fio.equals(name)
         }
         val subjectResult: SubjectResult? = student?.subjects_results?.find { subjectResult: SubjectResult ->
@@ -162,7 +167,7 @@ class SubjectService(
             return subjectResult
         }
         else{
-            throw NullPointerException()
+           return null
         }
     }
     fun endUserTest(id: ObjectId, test_id: ObjectId, name:String): TestResult {
@@ -171,7 +176,7 @@ class SubjectService(
             it.id.equals(test_id)
         }.get(0)
         val group = groupRepository.findGroupByUserName(name)
-        val student: Student? = group.users.find {
+        val student: Student? = group?.users?.find {
                 student: Student -> student.fio.equals(name)
         }
         val subjectResult: SubjectResult? = student?.subjects_results?.find {
@@ -188,7 +193,7 @@ class SubjectService(
                 }
                 else 0
             }
-            groupRepository.save(group)
+            subjectResultRepository.save(subjectResult)
             return testResult
         }
         throw NullPointerException()

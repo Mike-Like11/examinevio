@@ -69,7 +69,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" v-for="(question_answer,index) in test_info.questions_answers" v-on:click="current_question = question_answer;current_index = index+1">{{index+1}} вопрос</li>
                 </ul>
-                <a v-bind:href="test_id+'/test_result'" class="btn btn-light">Завершить тест</a>
+                <a v-bind:href="test_id+'/result'" class="btn btn-light">Завершить тест</a>
             </div>
         </div>
     </div>

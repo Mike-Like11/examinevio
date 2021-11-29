@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <th:block th:include="general.html :: headerfiles"></th:block>
+  <title>Выставление оценок</title>
+</head>
+<body>
+<header th:insert="general.html :: header"> </header>
+<div class="container" style="margin-top: 10px; margin-bottom: 10px;" id="subject_estimation">
+  <div class="card">
+    <div class="card-body">
+      <h3>Ученики</h3>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Фамилия</th>
+            <th scope="col">результаты тестов</th>
+            <th scope="col">Оценка</th>
+            <th scope="col">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="student in students">
+            <th scope="row">
+              {{student.fio}}
+            </th>
+            <td>
+              <div v-for="test_result in student.subjects_results[0].tests_results">
+                  <h5>{{test_result.test_name}}</h5>
+                  <h5>{{test_result.result}} / {{test_result.questions_answers.length}}</h5>
+              </div>
+            </td>
+            <td>
+                <input type="number" v-model="student.subjects_results[0].mark"  min="2" max="5">
+            </td>
+            <td>
+            <button class="btn add_question" v-on:click="addMark(student.fio,student.subjects_results[0].mark)">Поставить оценку</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script th:src="@{/js/subject_estimation.js}"></script>
+</body>
+</html>

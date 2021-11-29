@@ -2,18 +2,26 @@ window.app = new Vue({
     el: '#app',
     data: {
         subjects:[],
-        cookie: document.cookie
+        config : {
+            withCredentials: true
+        }
     },
-    mounted(){
-        this.getInfo();
+    async mounted(){
+        await this.getInfo();
+        window.document.getElementById("app").style.visibility = "visible"
     },
     methods: {
-        getInfo: function (event) {
+        getInfo: async function (event) {
             axios
-                .get("/subjects")
+                .get("/subjects",this.config)
                 .then(response => {
-                    this.subjects = response.data;
+                    console.log(response)
+                        this.subjects = response.data;
+
                 })
+                .catch(err =>
+                    window.location.href="/login"
+                 )
         }
     }
 })
