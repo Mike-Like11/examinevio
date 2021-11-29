@@ -66,7 +66,7 @@ class SecurityConfig(
             //Доступ только для пользователей с ролью Учитель
             .antMatchers("/teacher/*").hasRole("TEACHER")
             //Доступ  для всех пользователей
-            .antMatchers("/about/**","/css/**","/js/**","/img/**","/admin/**","/logout","/auth","/","/v3/**","/swagger-ui/**").permitAll()
+            .antMatchers("/about/**","/css/**","/js/**","/img/**","/logout","/auth","/","/v3/**","/swagger-ui/**").permitAll()
             .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
             //Доступ к остальным запросам только  для авторизованных пользователей
             .anyRequest().authenticated()
