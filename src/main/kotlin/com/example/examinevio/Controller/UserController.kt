@@ -1,17 +1,14 @@
 package com.example.examinevio.Controller
 
-import com.example.examinevio.JwtProvider
 import com.example.examinevio.Models.*
 import com.example.examinevio.Service.GroupService
 import com.example.examinevio.Service.SubjectService
 import com.example.examinevio.Service.TeacherService
 import com.example.examinevio.Service.UserService
-import io.swagger.v3.core.util.Json
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
